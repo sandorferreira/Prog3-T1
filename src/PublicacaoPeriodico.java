@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.LinkedList;
 
 public class PublicacaoPeriodico extends Publicacao {
 	private int numero;
@@ -7,7 +8,7 @@ public class PublicacaoPeriodico extends Publicacao {
 	private String titulo;
 	private String siglaveiculo;
 	private String local;
-	private Docente[] autores;
+	private LinkedList<Docente> autores;
 	
 	// Particular de Publicacao Periodico
 	private int volume;
@@ -17,7 +18,7 @@ public class PublicacaoPeriodico extends Publicacao {
 	}
 
 	public PublicacaoPeriodico(int numero, Date ano, int volume, int pgInicial, int pgFinal, String titulo,
-			String siglaveiculo, Docente[] autores) {
+			String siglaveiculo, LinkedList<Docente> autores) {
 		super(numero, ano, pgInicial, pgFinal, titulo, siglaveiculo, autores);
 		this.volume = volume;
 	}
