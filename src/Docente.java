@@ -1,13 +1,13 @@
 import java.util.Date;
 
 public class Docente {
-	private int codigo;
+	private long codigo;
 	private String nome;
 	private Date dataNascimento;
 	private Date dataIngresso;
 	private boolean coordenador;
 	
-	public Docente(int codigo, String nome, Date dataNascimento, Date dataIngresso,
+	public Docente(long codigo, String nome, Date dataNascimento, Date dataIngresso,
 					boolean coordenador) {
 		this.codigo = codigo;
 		this.nome = nome;
@@ -16,7 +16,7 @@ public class Docente {
 		this.coordenador = coordenador;
 	}
 
-	public int getCodigo() {
+	public long getCodigo() {
 		return codigo;
 	}
 
