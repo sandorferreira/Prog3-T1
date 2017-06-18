@@ -3,7 +3,7 @@ import java.util.LinkedList;
 
 public abstract class Publicacao {
 	private int numero;
-	private Date ano;
+	private int ano;
 	private int pgInicial, pgFinal;
 	private String titulo;
 	private String siglaveiculo;
@@ -14,7 +14,7 @@ public abstract class Publicacao {
 	}
 	
 	
-	public Publicacao(int numero, Date ano, int pgInicial, int pgFinal, String titulo, String siglaveiculo, LinkedList<Docente> autores) {
+	public Publicacao(int numero, int ano, int pgInicial, int pgFinal, String titulo, String siglaveiculo, LinkedList<Docente> autores) {
 		super();
 		this.numero = numero;
 		this.ano = ano;
@@ -31,7 +31,7 @@ public abstract class Publicacao {
 	}
 
 
-	public Date getAno() {
+	public int getAno() {
 		return ano;
 	}
 
@@ -59,8 +59,5 @@ public abstract class Publicacao {
 	public LinkedList<Docente> getAutores() {
 		return autores;
 	}
-	
-	
-	
 	
 }
