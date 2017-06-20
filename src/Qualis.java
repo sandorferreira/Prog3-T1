@@ -1,21 +1,27 @@
 
 public class Qualis {
+        private int ano;
 	private String sigla;
-	private int pontuacao;
+	private String qualis;
 	
-	public Qualis(String sigla, int pontuacao) {
+	public Qualis(int ano,String sigla, String qualis) {
+                this.ano = ano;
 		this.sigla = sigla;
-		this.pontuacao = pontuacao;
+		this.qualis = qualis;
 	}
 	
-	public int getPontuacao() {
-		return pontuacao;
+	public int getAno() {
+		return ano;
 	}
 	
 	public String getQualis() {
-		return "ata";
+		return qualis;
 	}
 	
+        public String getSigla(){
+                return sigla;
+        }
+        
 	@Override
 	public boolean equals(Object o) {
 		Qualis qualis = (Qualis) o;

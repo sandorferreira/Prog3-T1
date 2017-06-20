@@ -10,10 +10,10 @@ public class Programa {
 
     static LinkedList<Docente> docentes = new LinkedList<Docente>();
     static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
+    static LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
 
     public static void main(String[] args) {
         abrirArquivosDeEntrada();
-
     }
 
     public static void abrirArquivosDeEntrada() {
@@ -24,10 +24,11 @@ public class Programa {
         obterPublicacoes(filePublicacoes);
         
         File fileQualis = new File("qualis.csv");
-
-        File fileRegras = new File("regras.csv");
-
+        obterQualis(fileQualis);
+        
         File fileVeiculos = new File("veiculos.csv");
+        
+        File fileRegras = new File("regras.csv");
     }
 
     public static void obterDocentes(File fileDocente) {
@@ -72,7 +73,7 @@ public class Programa {
                 LinkedList<Docente> autoresList = new LinkedList<Docente>();
                 for (int i = autores.length;i>0;i--){
                     for (Docente docente : docentes){
-                        if (docente.getCodigo() == Long.parseLong(autores[i-1])){
+                        if (docente.getCodigo() == Long.parseLong(autores[i-1].trim())){
                             autoresList.add(docente);
                         }
                     }
@@ -96,4 +97,23 @@ public class Programa {
             //ALGUMA EXCECAO
         }
     }
+    
+    public static void obterQualis(File fileQualis) {
+        try {
+            Scanner sc = new Scanner(fileQualis);
+            String linha = sc.nextLine();
+            while (sc.hasNextLine()) {
+                linha = sc.nextLine();
+                String[] dados = linha.split(";");
+                int ano = Integer.parseInt(dados[0]);
+                String veiculo = dados[1];
+                String qualis = dados[2];
+                Qualis novoQualis = new Qualis (ano,veiculo,qualis);
+                listaQualis.add(novoQualis);
+            }
+        } catch (FileNotFoundException ex) {
+            //ALGUMA EXCECAO
+        }
+    }
+
 }
