@@ -11,6 +11,7 @@ public class Programa {
     static LinkedList<Docente> docentes = new LinkedList<Docente>();
     static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
     static LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
+    static LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
 
     public static void main(String[] args) {
         abrirArquivosDeEntrada();
@@ -27,6 +28,7 @@ public class Programa {
         obterQualis(fileQualis);
         
         File fileVeiculos = new File("veiculos.csv");
+        obterVeiculos(fileVeiculos);
         
         File fileRegras = new File("regras.csv");
     }
@@ -115,5 +117,29 @@ public class Programa {
             //ALGUMA EXCECAO
         }
     }
-
+    
+    public static void obterVeiculos(File fileVeiculos) {
+        try {
+            Scanner sc = new Scanner(fileVeiculos);
+            String linha = sc.nextLine();
+            while (sc.hasNextLine()) {
+                linha = sc.nextLine();
+                String[] dados = linha.split(";");
+                String sigla = dados[0];
+                String nome = dados[1];
+                char tipo = dados[2].charAt(0);
+                double impacto = Double.parseDouble(dados[3].replace(',', '.'));
+                if (dados.length>4){
+                    String issn = dados[4];
+                }
+                else{
+                    String issn = null;
+                }
+                Veiculo novoVeiculo = new Veiculo (sigla, nome, tipo, impacto, nome);
+                veiculos.add(novoVeiculo);
+            }
+        } catch (FileNotFoundException ex) {
+            //ALGUMA EXCECAO
+        }
+    }
 }
