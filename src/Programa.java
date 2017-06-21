@@ -1,10 +1,8 @@
-
 import java.io.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
-import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Programa {
 
@@ -12,9 +10,18 @@ public class Programa {
     static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
     static LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
     static LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
+    
+    static DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    static Date inicioVigencia, fimVigencia;
+    
+    static String[] categoriasQualis;
+    static double[] pontuacaoQualis;
+    static double multiplicador, pontuacaoMin;
+    static int anos;
 
     public static void main(String[] args) {
         abrirArquivosDeEntrada();
+        System.out.println("teste");
     }
 
     public static void abrirArquivosDeEntrada() {
@@ -31,13 +38,13 @@ public class Programa {
         obterVeiculos(fileVeiculos);
         
         File fileRegras = new File("regras.csv");
+        obterRegras(fileRegras);
     }
 
     public static void obterDocentes(File fileDocente) {
         try {
             Scanner sc = new Scanner(fileDocente);
             String linha = sc.nextLine();
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             while (sc.hasNextLine()) {
                 linha = sc.nextLine();
                 String[] dados = linha.split(";");
@@ -137,6 +144,38 @@ public class Programa {
                 }
                 Veiculo novoVeiculo = new Veiculo (sigla, nome, tipo, impacto, nome);
                 veiculos.add(novoVeiculo);
+            }
+        } catch (FileNotFoundException ex) {
+            //ALGUMA EXCECAO
+        }
+    }
+    
+    public static void obterRegras(File fileRegras) {
+        try {
+            Scanner sc = new Scanner(fileRegras);
+            String linha = sc.nextLine();
+            while (sc.hasNextLine()) {
+                linha = sc.nextLine();
+                String[] dados = linha.split(";");
+                try {
+                    inicioVigencia = format.parse(dados[0]);
+                    fimVigencia = format.parse(dados[1]);
+                } catch (ParseException ex) {
+                    //ALGUMA EXCECAO
+                }
+                categoriasQualis = new String[dados.length];    //Confirmar se precisa ou não inicializar assim
+                categoriasQualis = dados[2].split(",");
+                String[] auxString = dados[3].split(",");
+                pontuacaoQualis = new double [auxString.length];    //Mesma situação...
+                for (int i=0;i<auxString.length;i++){
+                    pontuacaoQualis[i] = Double.parseDouble(auxString[i].trim());
+                }
+                dados[4]= dados[4].replace(",", ".");
+                multiplicador = Double.parseDouble(dados[4].trim());
+                anos = Integer.parseInt(dados[5].trim());
+                dados[6]=dados[6].replace(",",".");
+                pontuacaoMin = Double.parseDouble(dados[6].trim());
+                
             }
         } catch (FileNotFoundException ex) {
             //ALGUMA EXCECAO
