@@ -36,5 +36,9 @@ public class Docente {
 		return coordenador;
 	}
 	
+	public String toString() {
+		return nome +";"+ codigo + ";" + dataNascimento + ";" + dataIngresso + ";" + coordenador; 
+	}
+	
 	
 }

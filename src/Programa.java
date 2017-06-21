@@ -16,6 +16,9 @@ public class Programa {
 
     public static void main(String[] args) {
         abrirArquivosDeEntrada();
+        for(Docente docente: docentes) {
+        	System.out.println(docente);
+        }
     }
 
     public static void abrirArquivosDeEntrada() {
@@ -130,13 +133,11 @@ public class Programa {
                 String nome = dados[1];
                 char tipo = dados[2].charAt(0);
                 double impacto = Double.parseDouble(dados[3].replace(',', '.'));
+                String ISSN = "";
                 if (dados.length>4){
-                    String issn = dados[4];
+                    ISSN = dados[4];
                 }
-                else{
-                    String issn = null;
-                }
-                Veiculo novoVeiculo = new Veiculo (sigla, nome, tipo, impacto, nome);
+                Veiculo novoVeiculo = new Veiculo (sigla, nome, tipo, impacto, ISSN);
                 veiculos.add(novoVeiculo);
             }
         } catch (FileNotFoundException ex) {
