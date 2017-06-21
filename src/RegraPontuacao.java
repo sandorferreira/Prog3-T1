@@ -3,12 +3,12 @@ import java.util.Date;
 public class RegraPontuacao {
 	private Date dataInicio, dataFinal;
 	private String[] categoriasQualis;
-        private double[] pontuacaoQualis;
-	private double multiplicador, pontuacaoMinima;
-	private int qtdAnos;
+        private int[] pontuacaoQualis;
+	private double multiplicador;
+	private int qtdAnos, pontuacaoMinima;
 	
-	public RegraPontuacao(Date dataInicio, Date dataFinal, String[] categoriasQualis, double[] pontuacaoQualis, double multiplicador, int qtdAnos,
-			double pontuacaoMinima) {
+	public RegraPontuacao(Date dataInicio, Date dataFinal, String[] categoriasQualis, int[] pontuacaoQualis, double multiplicador, int qtdAnos,
+			int pontuacaoMinima) {
 		this.dataInicio = dataInicio;
 		this.dataFinal = dataFinal;
                 this.categoriasQualis = categoriasQualis;
@@ -22,7 +22,7 @@ public class RegraPontuacao {
 		return categoriasQualis;
 	}
         
-	public double[] getPontuacaoQualis() {
+	public int[] getPontuacaoQualis() {
 		return pontuacaoQualis;
 	}
 
@@ -42,7 +42,7 @@ public class RegraPontuacao {
 		return qtdAnos;
 	}
 
-	public double getPontuacaoMinima() {
+	public int getPontuacaoMinima() {
 		return pontuacaoMinima;
 	}
 	

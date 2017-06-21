@@ -162,15 +162,15 @@ public class Programa {
                 String[] categoriasQualis = new String[dados.length];    //Confirmar se precisa ou não inicializar assim
                 categoriasQualis = dados[2].split(",");
                 String[] auxString = dados[3].split(",");
-                double[] pontuacaoQualis = new double [auxString.length];    //Mesma situação...
+                int[] pontuacaoQualis = new int [auxString.length];    //Mesma situação...
                 for (int i=0;i<auxString.length;i++){
-                    pontuacaoQualis[i] = Double.parseDouble(auxString[i].trim());
+                    pontuacaoQualis[i] = Integer.parseInt(auxString[i].trim());
                 }
                 dados[4]= dados[4].replace(",", ".");
                 double multiplicador = Double.parseDouble(dados[4].trim());
                 int anos = Integer.parseInt(dados[5].trim());
                 dados[6]=dados[6].replace(",",".");
-                double pontuacaoMin = Double.parseDouble(dados[6].trim());
+                int pontuacaoMin = Integer.parseInt(dados[6].trim());
                 regra = new RegraPontuacao(inicioVigencia, fimVigencia, categoriasQualis, pontuacaoQualis, multiplicador, anos, pontuacaoMin);
                 
             }
