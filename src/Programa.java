@@ -10,18 +10,12 @@ public class Programa {
     static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
     static LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
     static LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
+    static RegraPontuacao regra;
     
     static DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    static Date inicioVigencia, fimVigencia;
-    
-    static String[] categoriasQualis;
-    static double[] pontuacaoQualis;
-    static double multiplicador, pontuacaoMin;
-    static int anos;
 
     public static void main(String[] args) {
         abrirArquivosDeEntrada();
-        System.out.println("teste");
     }
 
     public static void abrirArquivosDeEntrada() {
@@ -157,24 +151,27 @@ public class Programa {
             while (sc.hasNextLine()) {
                 linha = sc.nextLine();
                 String[] dados = linha.split(";");
+                Date inicioVigencia = new Date();
+                Date fimVigencia = new Date();
                 try {
                     inicioVigencia = format.parse(dados[0]);
                     fimVigencia = format.parse(dados[1]);
                 } catch (ParseException ex) {
                     //ALGUMA EXCECAO
                 }
-                categoriasQualis = new String[dados.length];    //Confirmar se precisa ou não inicializar assim
+                String[] categoriasQualis = new String[dados.length];    //Confirmar se precisa ou não inicializar assim
                 categoriasQualis = dados[2].split(",");
                 String[] auxString = dados[3].split(",");
-                pontuacaoQualis = new double [auxString.length];    //Mesma situação...
+                double[] pontuacaoQualis = new double [auxString.length];    //Mesma situação...
                 for (int i=0;i<auxString.length;i++){
                     pontuacaoQualis[i] = Double.parseDouble(auxString[i].trim());
                 }
                 dados[4]= dados[4].replace(",", ".");
-                multiplicador = Double.parseDouble(dados[4].trim());
-                anos = Integer.parseInt(dados[5].trim());
+                double multiplicador = Double.parseDouble(dados[4].trim());
+                int anos = Integer.parseInt(dados[5].trim());
                 dados[6]=dados[6].replace(",",".");
-                pontuacaoMin = Double.parseDouble(dados[6].trim());
+                double pontuacaoMin = Double.parseDouble(dados[6].trim());
+                regra = new RegraPontuacao(inicioVigencia, fimVigencia, categoriasQualis, pontuacaoQualis, multiplicador, anos, pontuacaoMin);
                 
             }
         } catch (FileNotFoundException ex) {

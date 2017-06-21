@@ -15,7 +15,6 @@ public abstract class Publicacao {
 	
 	
 	public Publicacao(int numero, int ano, int pgInicial, int pgFinal, String titulo, String siglaveiculo, LinkedList<Docente> autores) {
-		super();
 		this.numero = numero;
 		this.ano = ano;
 		this.pgInicial = pgInicial;
