@@ -8,9 +8,9 @@ public class PublicacaoConferencia extends Publicacao {
 		super();
 	}
 
-	public PublicacaoConferencia(int numero, int ano, int pgInicial, int pgFinal, String titulo, String siglaveiculo,
+	public PublicacaoConferencia(int numero, int ano, int pgInicial, int pgFinal, String titulo, Veiculo veiculo,
 			String local, LinkedList<Docente> autores) {
-		super(numero, ano, pgInicial, pgFinal, titulo, siglaveiculo, autores);
+		super(numero, ano, pgInicial, pgFinal, titulo, veiculo, autores);
 		this.local = local;
 	}
         

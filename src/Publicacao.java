@@ -6,6 +6,7 @@ public abstract class Publicacao {
 	private int ano;
 	private int pgInicial, pgFinal;
 	private String titulo;
+        private Veiculo veiculo;
 	private String siglaveiculo;
 	private LinkedList<Docente> autores;
 	
@@ -14,13 +15,13 @@ public abstract class Publicacao {
 	}
 	
 	
-	public Publicacao(int numero, int ano, int pgInicial, int pgFinal, String titulo, String siglaveiculo, LinkedList<Docente> autores) {
+	public Publicacao(int numero, int ano, int pgInicial, int pgFinal, String titulo, Veiculo veiculo, LinkedList<Docente> autores) {
 		this.numero = numero;
 		this.ano = ano;
 		this.pgInicial = pgInicial;
 		this.pgFinal = pgFinal;
 		this.titulo = titulo;
-		this.siglaveiculo = siglaveiculo;
+		this.veiculo = veiculo;
 		this.autores = autores;
 	}
 
@@ -50,8 +51,8 @@ public abstract class Publicacao {
 	}
 
 
-	public String getSiglaveiculo() {
-		return siglaveiculo;
+	public Veiculo getVeiculo() {
+		return veiculo;
 	}
 
 

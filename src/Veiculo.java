@@ -1,4 +1,4 @@
-
+import java.util.*;
 
 public class Veiculo {
 	private String sigla;
@@ -6,6 +6,7 @@ public class Veiculo {
 	private char tipo;
 	private double fatorDeImpacto;
 	private String ISSN;
+        private LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
 	
 	public Veiculo(String sigla, String nome, char tipo, double fatorDeImpacto, String ISSN) {
 		this.sigla = sigla;
@@ -30,6 +31,10 @@ public class Veiculo {
 	public String getISSN() {
 		return ISSN;
 	}
+        
+        public LinkedList<Qualis> getListaQualis (){
+            return listaQualis;
+        }
 	
 	
 }

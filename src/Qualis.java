@@ -1,14 +1,16 @@
 
 public class Qualis {
-        private int ano;
-	private String sigla;
+        private int ano, pontuacao;
 	private String qualis;
 	
-	public Qualis(int ano,String sigla, String qualis) {
+	public Qualis(int ano, String qualis) {
                 this.ano = ano;
-		this.sigla = sigla;
 		this.qualis = qualis;
 	}
+        
+        public void setPontuacao (int pontuacao){
+            this.pontuacao = pontuacao;
+        }
 	
 	public int getAno() {
 		return ano;
@@ -18,13 +20,13 @@ public class Qualis {
 		return qualis;
 	}
 	
-        public String getSigla(){
-                return sigla;
+        public int getPontuacao(){
+                return pontuacao;
         }
         
-	@Override
-	public boolean equals(Object o) {
-		Qualis qualis = (Qualis) o;
-		return sigla.equals(qualis.getQualis());
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		Qualis qualis = (Qualis) o;
+//		return sigla.equals(qualis.getQualis());
+//	}
 }

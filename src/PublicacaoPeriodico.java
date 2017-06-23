@@ -9,8 +9,8 @@ public class PublicacaoPeriodico extends Publicacao {
 	}
 
 	public PublicacaoPeriodico(int numero, int ano, int volume, int pgInicial, int pgFinal, String titulo,
-			String siglaveiculo, LinkedList<Docente> autores) {
-		super(numero, ano, pgInicial, pgFinal, titulo, siglaveiculo, autores);
+			Veiculo veiculo, LinkedList<Docente> autores) {
+		super(numero, ano, pgInicial, pgFinal, titulo, veiculo, autores);
 		this.volume = volume;
 	}
 	
