@@ -1,3 +1,4 @@
+package trabalho;
 import java.util.*;
 
 public class Veiculo {
@@ -6,7 +7,7 @@ public class Veiculo {
 	private char tipo;
 	private double fatorDeImpacto;
 	private String ISSN;
-        private LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
+    private LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
 	
 	public Veiculo(String sigla, String nome, char tipo, double fatorDeImpacto, String ISSN) {
 		this.sigla = sigla;
@@ -32,9 +33,9 @@ public class Veiculo {
 		return ISSN;
 	}
         
-        public LinkedList<Qualis> getListaQualis (){
-            return listaQualis;
-        }
+	public LinkedList<Qualis> getListaQualis (){
+		return listaQualis;
+	}
 	
 	
 }

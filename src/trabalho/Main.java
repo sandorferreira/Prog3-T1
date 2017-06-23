@@ -1,9 +1,9 @@
-
+package trabalho;
 import java.io.*;
 import java.text.*;
 import java.util.*;
 
-public class Programa {
+public class Main {
 
     static LinkedList<Docente> docentes = new LinkedList<Docente>();
     static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();

@@ -1,3 +1,4 @@
+package trabalho;
 
 public class Qualis {
         private int ano, pontuacao;

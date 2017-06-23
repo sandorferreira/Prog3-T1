@@ -1,3 +1,4 @@
+package trabalho;
 import java.util.Date;
 import java.util.*;
 
@@ -7,7 +8,7 @@ public class Docente {
 	private Date dataNascimento;
 	private Date dataIngresso;
 	private boolean coordenador;
-        private LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
+    private LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
 	
 	public Docente(long codigo, String nome, Date dataNascimento, Date dataIngresso,
 					boolean coordenador) {
@@ -38,12 +39,12 @@ public class Docente {
 		return coordenador;
 	}
 	
-        public LinkedList<Publicacao> getPublicacoes(){
-            return publicacoes;
-        }
+    public LinkedList<Publicacao> getPublicacoes(){
+        return publicacoes;
+    }
         
-        public void adicionarPublicacao (Publicacao publicacao){
-            publicacoes.add(publicacao);
-        }
+    public void adicionarPublicacao (Publicacao publicacao){
+        publicacoes.add(publicacao);
+    }
 	
 }
