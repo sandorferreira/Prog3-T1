@@ -10,3 +10,8 @@ André:
 (21/06/2017)
 - Estou pensando em criar um objeto da classe 'Qualis' em 'Publicação' para vincular o qualis sem precisar ficar procurando toda hora, e lista de 'Publição' em 'Docente' para ter todas as listas de publicações de sua autoria.
 
+Sandor:
+
+(23/06/2017)
+- Criei classes para manipular os arquivos com as funções que você já criou.
+- Já comecei a tratar as exceções de leitura para depois gerar os relatórios mais tranquilamente
