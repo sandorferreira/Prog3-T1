@@ -8,12 +8,6 @@ public class CodigoDocenteException extends Exception {
 	}
 	
 	public CodigoDocenteException(Docente docente) {
-		super("Código repetido para " + docente.toString() + ": " + docente.getCodigo());
+		super("Código repetido para docente: " + docente.getCodigo());
 	}
-	
-	
-//	public String toString() {
-//		return "Erro de I/O";
-//	}
-
 }

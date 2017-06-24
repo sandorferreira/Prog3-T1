@@ -8,12 +8,6 @@ public class CodigoVeiculoException extends Exception {
 	}
 	
 	public CodigoVeiculoException(Veiculo veiculo) {
-		super("Código repetido para " + veiculo.toString() + ": " + veiculo.getISSN());
+		super("Código repetido para veículo: " + veiculo.getISSN());
 	}
-	
-	
-//	public String toString() {
-//		return "Erro de I/O";
-//	}
-
 }
