@@ -1,6 +1,6 @@
 package trabalho;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 public abstract class Publicacao {
 	private int numero;
@@ -9,14 +9,14 @@ public abstract class Publicacao {
 	private String titulo;
         private Veiculo veiculo;
 	private String siglaveiculo;
-	private LinkedList<Docente> autores;
+	private HashSet<Docente> autores;
 	
 	public Publicacao() {
 		System.out.println("Publicacao construida sem parametros");
 	}
 	
 	
-	public Publicacao(int numero, int ano, int pgInicial, int pgFinal, String titulo, Veiculo veiculo, LinkedList<Docente> autores) {
+	public Publicacao(int numero, int ano, int pgInicial, int pgFinal, String titulo, Veiculo veiculo, HashSet<Docente> autores) {
 		this.numero = numero;
 		this.ano = ano;
 		this.pgInicial = pgInicial;
@@ -57,7 +57,7 @@ public abstract class Publicacao {
 	}
 
 
-	public LinkedList<Docente> getAutores() {
+	public HashSet<Docente> getAutores() {
 		return autores;
 	}
 	

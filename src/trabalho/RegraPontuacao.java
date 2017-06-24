@@ -5,7 +5,7 @@ import java.util.Objects;
 public class RegraPontuacao {
 	private Date dataInicio, dataFinal;
 	private String[] categoriasQualis = {"A1","A2","B1","B2","B3","B4","B5","C"};
-        private int[] pontuacaoQualis;
+    private int[] pontuacaoQualis;
 	private double multiplicador;
 	private int qtdAnos, pontuacaoMinima;
 	

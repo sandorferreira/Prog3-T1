@@ -10,6 +10,8 @@ import java.util.Scanner;
 public class ArquivoPublicacoes extends File{
 	private HashSet<Docente> docentes;
 	private HashSet<Veiculo> veiculos;
+	
+	private HashSet<Publicacao> publicacoes;
 
 	public ArquivoPublicacoes(String pathname) throws ExceptionFile {
 		super(pathname);
@@ -39,26 +41,39 @@ public class ArquivoPublicacoes extends File{
                 int ano = Integer.parseInt(dados[0]);       //Primeiro dado: ano
                 String siglaVeiculo = dados[1];
                 String titulo = dados[2];
-                /* 
-                 * Verificando se há veículo com a sigla lida
-                 */
+                int numero = Integer.parseInt(dados[4]);            //Quinto: número
+                int pagInicial = Integer.parseInt(dados[7]);        //Sexto: Página inicial
+                int pagFinal = Integer.parseInt(dados[8]);
                 
                 try {
                 	Veiculo v = this.containsVeiculoDeSigla(titulo, siglaVeiculo);
+                	// Depois de checado, continua a criação de Publicação
+                	
+                	String[] codigosAutores = dados[3].split(",");
+                	try {
+                		HashSet<Docente> autores = this.loadListaAutores(codigosAutores, titulo);
+                		
+                		// Para conferência
+                		if(!("".equals(dados[6]))) {
+                			String local = dados[6];
+                			this.publicacoes.add(new PublicacaoConferencia(numero, ano, pagInicial, pagFinal, titulo, v, local, autores));
+                		}
+                		
+                		if(!("".equals(dados[5]))) {
+                			int volume = Integer.parseInt(dados[5]);
+                			this.publicacoes.add(new PublicacaoPeriodico(numero, ano, volume, pagInicial, pagFinal, titulo, v, autores));
+                		}
+                		
+                	} catch(CodigoDocenteNotFoundException e) {
+                		e.printStackTrace();
+                		System.exit(1); // nao deve gerar arquivos de saída e quitar
+                	}
                 	
                 } catch (SiglaVeiculoNotFoundException e) {
-                	
+                	e.printStackTrace();
+                	System.exit(1); // nao deve gerar arquivos de saída e quitar
                 }
-                
-                //Encontra um veículo na lista, com a mesma sigla
-                for (Veiculo auxVeiculo : veiculos){
-                    if (Objects.equals(auxVeiculo.getSigla(),siglaVeiculo)){
-                        veiculo = auxVeiculo;
-                    }
-                }
-                
-                           //Terceiro: título
-                String[] autores = dados[3].split(",");             //Quarto: docentes      Esses são separados pela ',' em um vetor de String
+              
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -66,7 +81,7 @@ public class ArquivoPublicacoes extends File{
 		}
 	}
 	
-	private Veiculo containsVeiculoDeSigla(String pTitulo, String sigla) throws Exception {
+	private Veiculo containsVeiculoDeSigla(String pTitulo, String sigla) throws SiglaVeiculoNotFoundException {
 		boolean isVeiculoContained = false;
 		Veiculo veiculo = null;
 		for(Veiculo v: veiculos) {
@@ -76,21 +91,33 @@ public class ArquivoPublicacoes extends File{
 			}
 		}
 		if(!isVeiculoContained) {
-			throw new SiglaVeiculoNotFoundException();
+			throw new SiglaVeiculoNotFoundException(pTitulo, sigla);
 		}
 		return veiculo;
 	}
 	
-	private HashSet<Docente> criaListaAutores(String[] autores) throws CodigoDocenteNotFoundException {
-		boolean isAutoresValid = true;
+	private HashSet<Docente> loadListaAutores(String[] autores, String pTitulo) throws CodigoDocenteNotFoundException {
+		HashSet<Docente> hashAutores = new HashSet<Docente>();
 		for(String codigoAutor: autores) {
-			for(Docente d: docentes) {
-				//if(d.getCodigo())
-					// parse codigo para long
-					// pensar melhor
-			}
+			Docente d = this.isCodigoDocenteValid(codigoAutor);
+			if(d == null) {
+				throw new CodigoDocenteNotFoundException(pTitulo, codigoAutor);
+			} else {
+				hashAutores.add(d);
+			}	
 		}
 		
+		return hashAutores;
+	}
+	
+	private Docente isCodigoDocenteValid(String codigo) {
+		Docente returnedDocente = null;
+		for(Docente d: docentes) {
+			if(d.getCodigo() == Long.parseLong(codigo.trim())) {
+				returnedDocente = d;
+			}
+		}
+		return returnedDocente;
 	}
 	
 }

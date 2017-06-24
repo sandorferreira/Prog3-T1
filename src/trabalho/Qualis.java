@@ -1,8 +1,9 @@
 package trabalho;
 
 public class Qualis {
-        private int ano, pontuacao;
+    private int ano, pontuacao;
 	private String qualis;
+	private static String[] categoriasQualis = {"A1","A2","B1","B2","B3","B4","B5","C"};
 	
 	public Qualis(int ano, String qualis) {
                 this.ano = ano;
@@ -24,6 +25,16 @@ public class Qualis {
         public int getPontuacao(){
                 return pontuacao;
         }
+        
+    public boolean isValidQualis() {
+    	boolean isContained = false;
+    	for(String auxQualis : categoriasQualis) {
+    		if (auxQualis.equals(qualis)) {
+    			isContained = true;
+    		}
+    	}
+    	return isContained;
+    }
         
 //	@Override
 //	public boolean equals(Object o) {
