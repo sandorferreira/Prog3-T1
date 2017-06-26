@@ -11,7 +11,7 @@ public class ArquivoPublicacoes extends File{
 	private HashSet<Docente> docentes;
 	private HashSet<Veiculo> veiculos;
 	
-	private HashSet<Publicacao> publicacoes;
+	private HashSet<Publicacao> publicacoes = new HashSet<Publicacao>();
 
 	public ArquivoPublicacoes(String pathname) throws ExceptionFile {
 		super(pathname);
@@ -39,8 +39,8 @@ public class ArquivoPublicacoes extends File{
 				linha = sc.nextLine();
                 String[] dados = linha.split(";");      //Separa linha
                 int ano = Integer.parseInt(dados[0]);       //Primeiro dado: ano
-                String siglaVeiculo = dados[1];
-                String titulo = dados[2];
+                String siglaVeiculo = dados[1].trim();
+                String titulo = dados[2].trim();
                 int numero = Integer.parseInt(dados[4]);            //Quinto: número
                 int pagInicial = Integer.parseInt(dados[7]);        //Sexto: Página inicial
                 int pagFinal = Integer.parseInt(dados[8]);
@@ -85,12 +85,12 @@ public class ArquivoPublicacoes extends File{
 		boolean isVeiculoContained = false;
 		Veiculo veiculo = null;
 		for(Veiculo v: veiculos) {
-			if(v.getISSN().equals(sigla)) {
+			if(v.getSigla().equals(sigla)) {
 				veiculo = v;
 				isVeiculoContained = true;
 			}
 		}
-		if(!isVeiculoContained) {
+		if(isVeiculoContained == false) {
 			throw new SiglaVeiculoNotFoundException(pTitulo, sigla);
 		}
 		return veiculo;
@@ -121,6 +121,7 @@ public class ArquivoPublicacoes extends File{
 	}
 	
 	public HashSet<Publicacao> getPublicacoes() {
+		this.loadDataToLocalMemory();
 		return publicacoes;
 	}
 	

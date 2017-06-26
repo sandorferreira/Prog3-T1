@@ -10,12 +10,15 @@ import java.io.FileNotFoundException;
 
 public class ArquivoQualificacoes extends File {
 	private HashSet<Qualis> qualificacoes = new HashSet<Qualis>();
-	private HashSet<Veiculo> veiculos;
+	private HashSet<Veiculo> veiculos = new HashSet<Veiculo>();
+	private HashSet<Veiculo> novoVeiculos = new HashSet<Veiculo>();
 	private RegraPontuacao regra;
 	
 	public ArquivoQualificacoes(String pathname, HashSet<Veiculo> veiculos) throws ExceptionFile {
 		super(pathname);
+		this.veiculos = veiculos;
 		if(!this.exists()) throw new ExceptionFile();
+		this.loadToLocalMemory();
 	}
 	
 	public void loadToLocalMemory() {
@@ -29,7 +32,7 @@ public class ArquivoQualificacoes extends File {
                 linha = sc.nextLine();
                 String[] dados = linha.split(";");
                 int ano = Integer.parseInt(dados[0]);           //Primeiro: ano
-                String siglaVeiculo = dados[1];                 //Segundo: Sigla do veículo
+                String siglaVeiculo = dados[1].trim();                 //Segundo: Sigla do veículo
                 String qualis = dados[2];  
                 //Terceiro: Classificação Qualis
                 
@@ -41,6 +44,8 @@ public class ArquivoQualificacoes extends File {
                 	try {
                 		this.isValidQualis(novoQualis, siglaVeiculo);
                 		v.getListaQualis().add(novoQualis);
+                		novoVeiculos.add(v);
+                		//System.out.println(v.getListaQualis());
                 	} catch (QualisNotFoundException e) {
                 		System.out.println(e.getMessage());
                         System.exit(1);
@@ -60,11 +65,15 @@ public class ArquivoQualificacoes extends File {
 	
 	public Veiculo getVeiculoWithSigla(int ano, String sigla) throws SiglaVeiculoNotFoundException {
 		Veiculo returnedVeiculo = null;
+		//System.out.println(veiculos);
 		for(Veiculo auxVeiculo: veiculos) {
-			if(sigla.equals(auxVeiculo.getSigla())) {
+			if(auxVeiculo.getSigla().equals(sigla)) {
 				returnedVeiculo = auxVeiculo;
+				//System.out.println(returnedVeiculo);
+				//System.out.println(sigla);
 			}
 		}
+		
 		if(returnedVeiculo == null) {
 			throw new SiglaVeiculoNotFoundException(ano, sigla);
 		}
@@ -82,7 +91,12 @@ public class ArquivoQualificacoes extends File {
 	}
 	
 	public HashSet<Qualis> getQualis() {
+		//this.loadToLocalMemory();
 		return qualificacoes;
+	}
+	
+	public HashSet<Veiculo> getVeiculosModificados() {
+		return novoVeiculos;
 	}
 	
 	public void setRegra(RegraPontuacao regra) {

@@ -37,4 +37,7 @@ public class Veiculo {
 		return listaQualis;
 	}
 	
+	public String toString() {
+		return sigla + " " + nome;
+	}
 }

@@ -15,7 +15,7 @@ import trabalho.Exceptions.QualisNotFoundException;
 
 public class ArquivoRegras extends File {
 	static DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-	private RegraPontuacao regra;
+	private RegraPontuacao regra = new RegraPontuacao();
 	
 	public ArquivoRegras(String pathname) throws ExceptionFile {
 		super(pathname);
@@ -105,6 +105,7 @@ public class ArquivoRegras extends File {
 	}
 	
 	public RegraPontuacao getRegra() {
+		this.loadDataToLocalMemory();
 		return regra;
 	}
 

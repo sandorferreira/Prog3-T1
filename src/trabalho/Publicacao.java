@@ -9,7 +9,7 @@ public abstract class Publicacao {
 	private String titulo;
     private Veiculo veiculo;
 	private HashSet<Docente> autores;
-	private Qualis qualis;
+	private String qualis;
 	
 	public Publicacao() {
 		System.out.println("Publicacao construida sem parametros");
@@ -56,12 +56,12 @@ public abstract class Publicacao {
 		return veiculo;
 	}
 	
-	public void setQualis(Qualis qualis) {
+	public void setQualis(String qualis) {
 		this.qualis = qualis;
 	}
 	
-	public Qualis getQualis() {
-		return this.qualis;
+	public String getQualis() {
+		return qualis;
 	}
 
 

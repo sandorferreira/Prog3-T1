@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 public class RelatorioPublicacoes {
-	private HashSet<Publicacao> publicacoes = new HashSet<Publicacao>();
+	private HashSet<Publicacao> publicacoes;// = new HashSet<Publicacao>();
 	private String pathname;
 	//private HashSet<Publicacao> publicacoesOrdenadas = new HashSet<Publicacao>();
 	private String[] categoriasQualis = {"A1","A2","B1","B2","B3","B4","B5","C"};
@@ -27,16 +27,20 @@ public class RelatorioPublicacoes {
 	
 	private HashSet<Publicacao> ordenarPorQualis(String qualis) {
 		HashSet<Publicacao> auxPub = new HashSet<Publicacao>();
+//		for(Publicacao auxPublicacao: publicacoes) {
+//			HashSet<Qualis> qualisPossiveis = auxPublicacao.getVeiculo().getListaQualis();
+//		
+//			//Qualis qualisPublicacao = new Qualis();
+//			for(Qualis auxQualis : qualisPossiveis) {
+////				if(auxQualis.getAno() == auxPublicacao.getAno()) {
+////					//qualisPublicacao = auxQualis;
+//					auxPublicacao.setQualis(auxQualis.getQualis());
+////				}
+//			}
+//		}
+		
 		for(Publicacao auxPublicacao: publicacoes) {
-			HashSet<Qualis> qualisPossiveis = auxPublicacao.getVeiculo().getListaQualis();
-			Qualis qualisPublicacao = null;
-			for(Qualis auxQualis : qualisPossiveis) {
-				if(auxQualis.getAno() == auxPublicacao.getAno()) {
-					qualisPublicacao = auxQualis;
-					auxPublicacao.setQualis(qualisPublicacao);
-				}
-			}
-			if(qualisPublicacao.getQualis() == qualis) {
+			if(auxPublicacao.getQualis().equals(qualis)) {
 				auxPub.add(auxPublicacao);
 			}
 		}
@@ -44,7 +48,12 @@ public class RelatorioPublicacoes {
 	}
 	
 	private int getMaiorAno(HashSet<Publicacao> auxPubs) {
-		int maiorAno = auxPubs.iterator().next().getAno();
+		int maiorAno = 0; //auxPubs.iterator().next().getAno();
+		for(Publicacao auxPub: auxPubs) {
+			maiorAno = auxPub.getAno();
+			break;
+		}
+		System.out.println("Continuou?");
 		for(Publicacao auxPublicacao: auxPubs) {
 			if(auxPublicacao.getAno() >= maiorAno) {
 				maiorAno = auxPublicacao.getAno();
@@ -80,7 +89,8 @@ public class RelatorioPublicacoes {
 		auxSiglasString = this.getSortedStringArray(auxSiglasString);
 		
 		for(String sigla : auxSiglasString) {
-			HashSet<Publicacao> vetorSiglas = this.ordenaPorSigla(auxPubs, sigla);
+			
+			//HashSet<Publicacao> vetorSiglas = this.ordenaPorSigla(auxPubs, sigla);
 			HashSet<Publicacao> vetorTituloOrdenado = new HashSet<Publicacao>();
 			Vector<String> titulos = new Vector<String>();
 			for(Publicacao auxPublicacaoTitulo : vetorSiglas) {
@@ -139,13 +149,29 @@ public class RelatorioPublicacoes {
 //		return auxTitulosPub;
 //	}
 	
+	
+	
 	private HashSet<Publicacao> ordenar() {
 		HashSet<Publicacao> hashOrdenada = new HashSet<Publicacao>();
+		
+		for(Publicacao auxPublicacao: publicacoes) {
+			HashSet<Qualis> qualisPossiveis = auxPublicacao.getVeiculo().getListaQualis();
+		
+			//Qualis qualisPublicacao = new Qualis();
+			for(Qualis auxQualis : qualisPossiveis) {
+//				if(auxQualis.getAno() == auxPublicacao.getAno()) {
+//					//qualisPublicacao = auxQualis;
+					auxPublicacao.setQualis(auxQualis.getQualis());
+//				}
+			}
+		}
+		
 		for(String categoriaQualis : categoriasQualis) {
 			// ordenando por qualis
 			
 			HashSet<Publicacao> pubPorQualis = this.ordenarPorQualis(categoriaQualis);
 			// ordenando por ano
+			//System.out.println(pubPorQualis);
 			int maiorAno = this.getMaiorAno(pubPorQualis);
 			HashSet<Publicacao> auxPubs = new HashSet<Publicacao>();
 			this.ordenarPorAno(maiorAno, maiorAno, auxPubs, pubPorQualis);
@@ -157,6 +183,7 @@ public class RelatorioPublicacoes {
 	
 	public void write() {
 		HashSet<Publicacao> hashOrdenada = this.ordenar();
+		//System.out.println(hashOrdenada);
 		
 		FileWriter fileWriter = null;
 		
@@ -166,15 +193,19 @@ public class RelatorioPublicacoes {
 			fileWriter.append(NEW_LINE_SEPARATOR.toString());
 			
 			for(Publicacao p : hashOrdenada) {
+				//System.out.println(p);
+				//System.out.println(p.getVeiculo().getListaQualis());
 				fileWriter.append(String.valueOf(p.getAno()));
 				fileWriter.append(COMMA_DELIMITER.toString());
 				fileWriter.append(p.getVeiculo().getSigla());
 				fileWriter.append(COMMA_DELIMITER.toString());
 				fileWriter.append(p.getVeiculo().getNome());
 				fileWriter.append(COMMA_DELIMITER.toString());
-				fileWriter.append(p.getQualis().getQualis());
+				fileWriter.append(p.getQualis());
 				fileWriter.append(COMMA_DELIMITER.toString());
 				fileWriter.append(String.valueOf(p.getVeiculo().getFatorDeImpacto()).replace(".", ","));
+				fileWriter.append(COMMA_DELIMITER.toString());
+				fileWriter.append(p.getTitulo());
 				fileWriter.append(COMMA_DELIMITER.toString());
 				int lenghAutores = p.getAutores().size();
 				int i = 0;
@@ -186,6 +217,7 @@ public class RelatorioPublicacoes {
 					}
 					i++;
 				}
+				fileWriter.append(NEW_LINE_SEPARATOR.toString());
 			}
 			
 		} catch (Exception e) {
@@ -208,7 +240,13 @@ public class RelatorioPublicacoes {
 	
 	private Vector<String> getSortedStringArray(Vector<String> array) {
 		Collections.sort(array);
-		return array;
+		Vector<String> newArray = new Vector<String>();
+		for(String auxArray : array ) {
+			if (!newArray.contains(auxArray)) {
+				newArray.add(auxArray);
+			}
+		}
+		return newArray;
 	}
 	
 

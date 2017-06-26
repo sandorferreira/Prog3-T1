@@ -9,6 +9,8 @@ public class Qualis {
                 this.ano = ano;
 		this.qualis = qualis;
 	}
+	
+	public Qualis() {}
         
         public void setPontuacao (int pontuacao){
             this.pontuacao = pontuacao;
@@ -34,6 +36,10 @@ public class Qualis {
     		}
     	}
     	return isContained;
+    }
+    
+    public String toString() {
+    	return qualis;
     }
         
 //	@Override

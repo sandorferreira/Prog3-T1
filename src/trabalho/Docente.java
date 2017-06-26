@@ -46,5 +46,9 @@ public class Docente {
     public void adicionarPublicacao (Publicacao publicacao){
         publicacoes.add(publicacao);
     }
+    
+    public String toString() {
+    	return nome;
+    }
 	
 }

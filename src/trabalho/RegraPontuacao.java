@@ -18,6 +18,8 @@ public class RegraPontuacao {
 		this.qtdAnos = qtdAnos;
 		this.pontuacaoMinima = pontuacaoMinima;
 	}
+	
+	public RegraPontuacao() {}
         
         public String[] getCategoriasQualis (){
             return categoriasQualis;
@@ -54,6 +56,10 @@ public class RegraPontuacao {
                 }
             }
             return 0;
-        }
+    }
+	
+	public String toString() {
+		return String.valueOf(multiplicador);
+	}
 	
 }

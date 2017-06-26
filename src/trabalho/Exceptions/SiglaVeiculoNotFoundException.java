@@ -14,6 +14,6 @@ public class SiglaVeiculoNotFoundException extends Exception {
 	}
 	
 	public SiglaVeiculoNotFoundException(int ano, String sigla) {
-		super("Sigla de veículo não definida usada na qualificação do ano \"" + ano + ": " + sigla);
+		super("Sigla de veículo não definida usada na qualificação do ano " + ano + ": " + sigla);
 	}
 }

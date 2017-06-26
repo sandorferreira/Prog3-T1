@@ -33,6 +33,7 @@ public class Main {
 		try {
 			arqVeiculo = new ArquivoVeiculo("veiculos.csv");
 			veiculos = arqVeiculo.getVeiculos();
+			//System.out.println(veiculos);
 		} catch (ExceptionFile e) {
 			printAndStop(e.getMessage());
 		}
@@ -53,13 +54,15 @@ public class Main {
 		
 		try {
 			arqQualificacoes = new ArquivoQualificacoes("qualis.csv", veiculos);
-			listaQualis = arqQualificacoes.getQualis();
+			//listaQualis = arqQualificacoes.getQualis();
 			arqQualificacoes.setRegra(regra);
+			listaQualis = arqQualificacoes.getQualis();
+			//veiculos = arqQualificacoes.getVeiculosModificados();
 		} catch (ExceptionFile e) {
 			printAndStop(e.getMessage());
 		}
 		
-		
+		//System.out.println(publicacoes);
 		
 		// Todos os arquivos lidos, gerar relatório
 		

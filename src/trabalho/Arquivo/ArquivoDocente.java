@@ -9,21 +9,20 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class ArquivoDocente extends File {
-	private HashSet<Docente> docentes;
+public class ArquivoDocente {
+	private HashSet<Docente> docentes = new HashSet<Docente>();
 	private String pathname;
 
 	public ArquivoDocente(String pathname) throws ExceptionFile {
-		super(pathname);
 		this.pathname = pathname;
-		if (!this.exists()) throw new ExceptionFile();
+		if (!(new File(pathname).exists())) throw new ExceptionFile();
 
 	}
 	
 	public void loadDataToMemory() {
 		Scanner sc;
 		try {
-			sc = new Scanner(this);
+			sc = new Scanner(new File(pathname));
 			String linha = sc.nextLine();
 			while (sc.hasNextLine()) {
 				DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -31,7 +30,7 @@ public class ArquivoDocente extends File {
 	            String[] dados = linha.split(";");  //Divide cada linha usando o ';' como divisor
 	            boolean coordenador = false;
 	            long codigo = Long.parseLong(dados[0]);     //Primeiro dado, código do docente
-	            String nome = dados[1];                     //Segundo dado, nome do docente
+	            String nome = dados[1].trim();                     //Segundo dado, nome do docente
 	            
 	            //Confirma se possui um 5º dado, e se é um 'X', ou seja, coordenador
 	            if ((dados.length > 4) && ("X".equals(dados[4]))) {
@@ -52,7 +51,6 @@ public class ArquivoDocente extends File {
 	            }
 	        }
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

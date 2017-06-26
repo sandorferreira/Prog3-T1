@@ -7,12 +7,14 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 public class ArquivoVeiculo extends File{
-	HashSet<Veiculo> veiculos;
+	HashSet<Veiculo> veiculos = new HashSet<Veiculo>();
+	private String pathname;
 
 	public ArquivoVeiculo(String pathname) throws ExceptionFile {
 		super(pathname);
-		if (!this.exists()) throw new ExceptionFile();
-
+		this.pathname = pathname;
+		if (!(new File(pathname).exists())) throw new ExceptionFile();
+		//this.loadDataToMemory();
 	}
 	
 	public void loadDataToMemory() {
@@ -23,19 +25,25 @@ public class ArquivoVeiculo extends File{
             
             while (sc.hasNextLine()) {
                 linha = sc.nextLine();
+                //System.out.println(linha);
                 String[] dados = linha.split(";");
-                String sigla = dados[0];                                            //Primeiro: Sigla
-                String nome = dados[1];                                             //Segundo: Nome
+                String sigla = dados[0].trim();
+                //System.out.println(sigla);
+                
+                //Primeiro: Sigla
+                String nome = dados[1].trim(); 
                 char tipo;
                 try {
                 	tipo = isTipoValid(dados[2].charAt(0), sigla); // joga exceção
-                	double impacto = Double.parseDouble(dados[3].replace(',', '.'));    //Quarto: Fator de impacto
+                	double impacto = Double.parseDouble(dados[3].replace(',', '.'));
+                	//Quarto: Fator de impacto
                     String issn = null;            //Quinto: ISSN (caso tenha)
                     if (dados.length > 4) {
                         issn = dados[4];
                     }
                     
                     Veiculo novoVeiculo = new Veiculo(sigla, nome, tipo, impacto, issn);
+                    //System.out.println(novoVeiculo);
                     veiculos.add(novoVeiculo);
                 } catch(TypeVeiculoNotDefinedException e) {
                 	e.printStackTrace();
@@ -46,9 +54,13 @@ public class ArquivoVeiculo extends File{
             e.printStackTrace();
             System.exit(1);
         }
+		//this.veiculos = auxVeiculos;
+		//System.out.println(auxVeiculos);
 	}
 	
 	public HashSet<Veiculo> getVeiculos() {
+		this.loadDataToMemory();
+		System.out.println(veiculos);
 		return veiculos;
 	}
 	
