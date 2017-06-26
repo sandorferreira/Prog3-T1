@@ -120,4 +120,8 @@ public class ArquivoPublicacoes extends File{
 		return returnedDocente;
 	}
 	
+	public HashSet<Publicacao> getPublicacoes() {
+		return publicacoes;
+	}
+	
 }

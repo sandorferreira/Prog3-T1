@@ -6,4 +6,8 @@ public class QualisNotFoundException extends Exception {
 		super("Qualis desconhecido para qualificação do veículo " + vSigla + " no ano "
 				+ ano + ": " + qualis);
 	}
+	
+	public QualisNotFoundException(int ano, String qualis) {
+		super("Qualis desconhecido para regras de " + ano + ": " + qualis);
+	}
 }

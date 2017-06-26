@@ -1,6 +1,7 @@
 package trabalho.Arquivo;
 import trabalho.Exceptions.*;
 import trabalho.Qualis;
+import trabalho.RegraPontuacao;
 import trabalho.Veiculo;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -8,8 +9,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ArquivoQualificacoes extends File {
-	private HashSet<Qualis> qualificacoes;
+	private HashSet<Qualis> qualificacoes = new HashSet<Qualis>();
 	private HashSet<Veiculo> veiculos;
+	private RegraPontuacao regra;
 	
 	public ArquivoQualificacoes(String pathname, HashSet<Veiculo> veiculos) throws ExceptionFile {
 		super(pathname);
@@ -82,5 +84,16 @@ public class ArquivoQualificacoes extends File {
 	public HashSet<Qualis> getQualis() {
 		return qualificacoes;
 	}
+	
+	public void setRegra(RegraPontuacao regra) {
+		this.regra = regra;
+		this.colocarPontuacaoQualis();
+	}
+	
+	private void colocarPontuacaoQualis(){
+        for (Qualis auxQualis : qualificacoes){
+            auxQualis.setPontuacao(regra.valorQualis(auxQualis.getQualis()));
+        }
+    }
 
 }

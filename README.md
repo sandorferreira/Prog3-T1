@@ -21,3 +21,6 @@ Sandor:
 - O Programa.java se chama agora Main.java para executar no teste automático no arquivo build.xml
 - Todas as Exceções estão codificadas como subclasses de Exception, sendo criadas com uma mensagem automática para gerar no teste automático apenas com (e.getMessage()).
 - As inconsistências dos dados também já estão implementadas.
+
+(26/06/2017)
+- Gerando os relatórios.

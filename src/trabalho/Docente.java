@@ -8,7 +8,7 @@ public class Docente {
 	private Date dataNascimento;
 	private Date dataIngresso;
 	private boolean coordenador;
-    private LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
+    private HashSet<Publicacao> publicacoes = new HashSet<Publicacao>();
 	
 	public Docente(long codigo, String nome, Date dataNascimento, Date dataIngresso,
 					boolean coordenador) {
@@ -39,7 +39,7 @@ public class Docente {
 		return coordenador;
 	}
 	
-    public LinkedList<Publicacao> getPublicacoes(){
+    public HashSet<Publicacao> getPublicacoes(){
         return publicacoes;
     }
         
