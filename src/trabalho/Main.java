@@ -4,6 +4,7 @@ import java.text.*;
 import java.util.*;
 import trabalho.Arquivo.*;
 import trabalho.Exceptions.*;
+import trabalho.Relatorio.*;
 
 public class Main {
 
@@ -62,6 +63,8 @@ public class Main {
 		
 		// Todos os arquivos lidos, gerar relatório
 		
+		RelatorioPublicacoes rPublicacoes = new RelatorioPublicacoes("2-publicacoes.csv", publicacoes);
+		rPublicacoes.write();
 		
 		//arqQualificacoes.setRegra(regra);
 		
