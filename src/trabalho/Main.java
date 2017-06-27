@@ -68,7 +68,11 @@ public class Main {
 		
 		RelatorioPublicacoes rPublicacoes = new RelatorioPublicacoes("2-publicacoes.csv", publicacoes);
 		rPublicacoes.write();
-		
+
+
+		RelatorioRecredenciamento rRecredenciamento = new RelatorioRecredenciamento("1-recredenciamento.csv", docentes, regra);
+		rRecredenciamento.write();
+                
 		//arqQualificacoes.setRegra(regra);
 		
 		
