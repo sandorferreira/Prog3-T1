@@ -3,15 +3,15 @@ import trabalho.Exceptions.*;
 import trabalho.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class ArquivoPublicacoes extends File{
-	private HashSet<Docente> docentes;
-	private HashSet<Veiculo> veiculos;
+	private LinkedList<Docente> docentes;
+	private LinkedList<Veiculo> veiculos;
 	
-	private HashSet<Publicacao> publicacoes = new HashSet<Publicacao>();
+	private LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
 
 	public ArquivoPublicacoes(String pathname) throws ExceptionFile {
 		super(pathname);
@@ -19,7 +19,7 @@ public class ArquivoPublicacoes extends File{
 
 	}
 	
-	public ArquivoPublicacoes(String pathname, HashSet<Docente> docentes, HashSet<Veiculo> veiculos) throws ExceptionFile {
+	public ArquivoPublicacoes(String pathname, LinkedList<Docente> docentes, LinkedList<Veiculo> veiculos) throws ExceptionFile {
 		super(pathname);
 		if(!this.exists()) {
 			throw new ExceptionFile();
@@ -51,7 +51,7 @@ public class ArquivoPublicacoes extends File{
                 	
                 	String[] codigosAutores = dados[3].split(",");
                 	try {
-                		HashSet<Docente> autores = this.loadListaAutores(codigosAutores, titulo);
+                		LinkedList<Docente> autores = this.loadListaAutores(codigosAutores, titulo);
                 		
                 		// Para conferência
                 		if(!("".equals(dados[6]))) {
@@ -96,8 +96,8 @@ public class ArquivoPublicacoes extends File{
 		return veiculo;
 	}
 	
-	private HashSet<Docente> loadListaAutores(String[] autores, String pTitulo) throws CodigoDocenteNotFoundException {
-		HashSet<Docente> hashAutores = new HashSet<Docente>();
+	private LinkedList<Docente> loadListaAutores(String[] autores, String pTitulo) throws CodigoDocenteNotFoundException {
+		LinkedList<Docente> hashAutores = new LinkedList<Docente>();
 		for(String codigoAutor: autores) {
 			Docente d = this.isCodigoDocenteValid(codigoAutor);
 			if(d == null) {
@@ -120,7 +120,7 @@ public class ArquivoPublicacoes extends File{
 		return returnedDocente;
 	}
 	
-	public HashSet<Publicacao> getPublicacoes() {
+	public LinkedList<Publicacao> getPublicacoes() {
 		this.loadDataToLocalMemory();
 		return publicacoes;
 	}

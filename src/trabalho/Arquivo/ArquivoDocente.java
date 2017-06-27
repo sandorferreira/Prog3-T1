@@ -6,11 +6,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ArquivoDocente {
-	private HashSet<Docente> docentes = new HashSet<Docente>();
+	private LinkedList<Docente> docentes = new LinkedList<Docente>();
 	private String pathname;
 
 	public ArquivoDocente(String pathname) throws ExceptionFile {
@@ -56,7 +56,7 @@ public class ArquivoDocente {
 		
 	}
 	
-	public HashSet<Docente> getDocentes() {
+	public LinkedList<Docente> getDocentes() {
 		this.loadDataToMemory();
 		return docentes;
 	}

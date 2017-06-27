@@ -8,10 +8,10 @@ import trabalho.Relatorio.*;
 
 public class Main {
 
-    static HashSet<Docente> docentes = new HashSet<Docente>();
-    static HashSet<Publicacao> publicacoes = new HashSet<Publicacao>();
-    static HashSet<Qualis> listaQualis = new HashSet<Qualis>();
-    static HashSet<Veiculo> veiculos = new HashSet<Veiculo>();
+    static LinkedList<Docente> docentes = new LinkedList<Docente>();
+    static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
+    static LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
+    static LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
     static RegraPontuacao regra;
 
    // static DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -151,7 +151,7 @@ public class Main {
 //                String[] autores = dados[3].split(",");             //Quarto: docentes      Esses são separados pela ',' em um vetor de String
 //                
 //                //É então criado uma lista de docentes, e adiciona os docentes que estão no vetor de String
-//                HashSet<Docente> autoresList = new HashSet<Docente>();
+//                LinkedList<Docente> autoresList = new LinkedList<Docente>();
 //                for (int i = autores.length; i > 0; i--) {
 //                    for (Docente docente : docentes) {
 //                        if (docente.getCodigo() == Long.parseLong(autores[i - 1].trim())) {

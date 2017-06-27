@@ -2,16 +2,17 @@ package trabalho.Relatorio;
 import trabalho.*;
 import java.io.File;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.LinkedList;
 import java.util.Vector;
 import java.io.FileWriter;
 import java.io.IOException;
 
 
 public class RelatorioPublicacoes {
-	private HashSet<Publicacao> publicacoes;// = new HashSet<Publicacao>();
+	private LinkedList<Publicacao> publicacoes;// = new LinkedList<Publicacao>();
 	private String pathname;
-	//private HashSet<Publicacao> publicacoesOrdenadas = new HashSet<Publicacao>();
+	//private LinkedList<Publicacao> publicacoesOrdenadas = new LinkedList<Publicacao>();
 	private String[] categoriasQualis = {"A1","A2","B1","B2","B3","B4","B5","C"};
 	
 	// Writer
@@ -20,24 +21,13 @@ public class RelatorioPublicacoes {
 	private static final String FILE_HEADER = "Ano;Sigla Veículo;Veículo;Qualis;Fator de Impacto;Título;Docentes";
 
 	
-	public RelatorioPublicacoes(String pathname, HashSet<Publicacao> publicacoes) {
+	public RelatorioPublicacoes(String pathname, LinkedList<Publicacao> publicacoes) {
 		this.publicacoes = publicacoes;
 		this.pathname = pathname;
 	}
 	
-	private HashSet<Publicacao> ordenarPorQualis(String qualis) {
-		HashSet<Publicacao> auxPub = new HashSet<Publicacao>();
-//		for(Publicacao auxPublicacao: publicacoes) {
-//			HashSet<Qualis> qualisPossiveis = auxPublicacao.getVeiculo().getListaQualis();
-//		
-//			//Qualis qualisPublicacao = new Qualis();
-//			for(Qualis auxQualis : qualisPossiveis) {
-////				if(auxQualis.getAno() == auxPublicacao.getAno()) {
-////					//qualisPublicacao = auxQualis;
-//					auxPublicacao.setQualis(auxQualis.getQualis());
-////				}
-//			}
-//		}
+	private LinkedList<Publicacao> ordenarPorQualis(String qualis) {
+		LinkedList<Publicacao> auxPub = new LinkedList<Publicacao>();
 		
 		for(Publicacao auxPublicacao: publicacoes) {
 			if(auxPublicacao.getQualis().equals(qualis)) {
@@ -47,7 +37,7 @@ public class RelatorioPublicacoes {
 		return auxPub;
 	}
 	
-	private int getMaiorAno(HashSet<Publicacao> auxPubs) {
+	private int getMaiorAno(LinkedList<Publicacao> auxPubs) {
 		int maiorAno = 0; //auxPubs.iterator().next().getAno();
 		for(Publicacao auxPub: auxPubs) {
 			maiorAno = auxPub.getAno();
@@ -62,10 +52,10 @@ public class RelatorioPublicacoes {
 		return maiorAno;
 	}
 	
-	private void ordenarPorAno(int maiorAno, int ano, HashSet<Publicacao> auxPubs, HashSet<Publicacao> pubPorQualis) {
-		HashSet<Publicacao> auxSiglas = new HashSet<Publicacao>();
+	private LinkedList<Publicacao> ordenarPorAno(int maiorAno, int ano, LinkedList<Publicacao> pubPorQualis) {
+		LinkedList<Publicacao> auxSiglas = new LinkedList<Publicacao>();
 		
-		if(maiorAno - ano > 10) {
+		//if(maiorAno - ano > 10) {
 			for(Publicacao auxPub: pubPorQualis) {
 				if(auxPub.getAno() == ano) {
 					auxSiglas.add(auxPub);
@@ -73,15 +63,13 @@ public class RelatorioPublicacoes {
 			}
 			//ordenando por sigla
 			auxSiglas = this.ordenarPorSigla(auxSiglas);
-			auxPubs.addAll(auxSiglas);
-			this.ordenarPorAno(maiorAno, ano - 1, auxPubs, pubPorQualis);
-		}
+			return auxSiglas;
 	}
 	
 	
-	private HashSet<Publicacao> ordenarPorSigla(HashSet<Publicacao> auxPubs) {
-		//HashSet<Publicacao> auxSiglas = new HashSet<Publicacao>();
-		HashSet<Publicacao> returnedSiglaAndTitulo = new HashSet<Publicacao>();
+	private LinkedList<Publicacao> ordenarPorSigla(LinkedList<Publicacao> auxPubs) {
+		//LinkedList<Publicacao> auxSiglas = new LinkedList<Publicacao>();
+		LinkedList<Publicacao> returnedSiglaAndTitulo = new LinkedList<Publicacao>();
 		Vector<String> auxSiglasString = new Vector<String>();
 		for(Publicacao auxPub : auxPubs) {
 			auxSiglasString.add(auxPub.getVeiculo().getSigla());
@@ -89,22 +77,31 @@ public class RelatorioPublicacoes {
 		auxSiglasString = this.getSortedStringArray(auxSiglasString);
 		
 		for(String sigla : auxSiglasString) {
+			LinkedList<Publicacao> auxSiglaHS = new LinkedList<Publicacao>();
+			for(Publicacao auxPub : auxPubs) {
+				if(auxPub.getVeiculo().getSigla().equals(sigla)) {
+					auxSiglaHS.add(auxPub);
+				}
+			}
 			
-			//HashSet<Publicacao> vetorSiglas = this.ordenaPorSigla(auxPubs, sigla);
-			HashSet<Publicacao> vetorTituloOrdenado = new HashSet<Publicacao>();
+			//LinkedList<Publicacao> vetorSiglas = this.ordenaPorSigla(auxPubs, sigla);
+			LinkedList<Publicacao> vetorTituloOrdenado = new LinkedList<Publicacao>();
 			Vector<String> titulos = new Vector<String>();
-			for(Publicacao auxPublicacaoTitulo : vetorSiglas) {
+			for(Publicacao auxPublicacaoTitulo : auxSiglaHS) {
 				titulos.add(auxPublicacaoTitulo.getTitulo());
 			}
 			titulos = this.getSortedStringArray(titulos);
 			for(String titulo : titulos) {
-				for(Publicacao auxPub : vetorSiglas) {
+				for(Publicacao auxPub : auxSiglaHS) {
 					if(titulo.equals(auxPub.getTitulo())) {
 						vetorTituloOrdenado.add(auxPub);
 					}
 				}
 			}
-			returnedSiglaAndTitulo.addAll(vetorTituloOrdenado);
+			for(Publicacao okok : vetorTituloOrdenado) {
+				returnedSiglaAndTitulo.add(okok);
+			}
+			//returnedSiglaAndTitulo.addAll(vetorTituloOrdenado);
 		}
 		return returnedSiglaAndTitulo;
 //		
@@ -119,8 +116,8 @@ public class RelatorioPublicacoes {
 //		return auxSiglas;
 	}
 	
-	private HashSet<Publicacao> ordenaPorSigla(HashSet<Publicacao> pubAno, String sigla) {
-		HashSet<Publicacao> auxPubPorSigla = new HashSet<Publicacao>();
+	private LinkedList<Publicacao> ordenaPorSigla(LinkedList<Publicacao> pubAno, String sigla) {
+		LinkedList<Publicacao> auxPubPorSigla = new LinkedList<Publicacao>();
 		for(Publicacao auxPub: pubAno) {
 			if(auxPub.getVeiculo().getSigla().equals(sigla)) {
 				auxPubPorSigla.add(auxPub);
@@ -130,9 +127,9 @@ public class RelatorioPublicacoes {
 		return auxPubPorSigla;
 	}
 	
-//	private HashSet<Publicacao> ordenarPorTitulo(HashSet<Publicacao> auxPubs) {
+//	private LinkedList<Publicacao> ordenarPorTitulo(LinkedList<Publicacao> auxPubs) {
 //		Vector<String> auxTitulos = new Vector<String>();
-//		HashSet<Publicacao> auxTitulosPub = new HashSet<Publicacao>();
+//		LinkedList<Publicacao> auxTitulosPub = new LinkedList<Publicacao>();
 //		for(Publicacao auxPub: auxPubs) {
 //			auxTitulos.add(auxPub.getTitulo());
 //		}
@@ -151,11 +148,11 @@ public class RelatorioPublicacoes {
 	
 	
 	
-	private HashSet<Publicacao> ordenar() {
-		HashSet<Publicacao> hashOrdenada = new HashSet<Publicacao>();
+	private LinkedList<Publicacao> ordenar() {
+		LinkedList<Publicacao> hashOrdenada = new LinkedList<Publicacao>();
 		
 		for(Publicacao auxPublicacao: publicacoes) {
-			HashSet<Qualis> qualisPossiveis = auxPublicacao.getVeiculo().getListaQualis();
+			LinkedList<Qualis> qualisPossiveis = auxPublicacao.getVeiculo().getListaQualis();
 		
 			//Qualis qualisPublicacao = new Qualis();
 			for(Qualis auxQualis : qualisPossiveis) {
@@ -168,21 +165,46 @@ public class RelatorioPublicacoes {
 		
 		for(String categoriaQualis : categoriasQualis) {
 			// ordenando por qualis
+			LinkedList<Publicacao> auxPubs = new LinkedList<Publicacao>();
+			LinkedList<Publicacao> pubPorQualis = this.ordenarPorQualis(categoriaQualis);
 			
-			HashSet<Publicacao> pubPorQualis = this.ordenarPorQualis(categoriaQualis);
+//			for(Publicacao tata: pubPorQualis) {
+//				System.out.println(tata.getQualis());
+//			}
+			
+			//System.out.println(pubPorQualis);
 			// ordenando por ano
 			//System.out.println(pubPorQualis);
 			int maiorAno = this.getMaiorAno(pubPorQualis);
-			HashSet<Publicacao> auxPubs = new HashSet<Publicacao>();
-			this.ordenarPorAno(maiorAno, maiorAno, auxPubs, pubPorQualis);
-			hashOrdenada.addAll(auxPubs);
+			System.out.println(maiorAno);
+			for(int ano = maiorAno; ano>2007;ano--) {
+				LinkedList<Publicacao> ordenadoPorAno = this.ordenarPorAno(maiorAno, ano, pubPorQualis);
+				for(Publicacao okok : ordenadoPorAno) {
+					auxPubs.add(okok);
+					//System.out.println(okok.getQualis());
+				}
+//				
+				//auxPubs.addAll(ordenadoPorAno);
+			}
+			
+			//this.ordenarPorAno(maiorAno, maiorAno, auxPubs, pubPorQualis);
+			//hashOrdenada.addAll(auxPubs);
+			for(Publicacao okok : auxPubs) {
+				hashOrdenada.add(okok);
+				//System.out.println(okok.getQualis());
+			}
 		}
-		
+		for(Publicacao okok : hashOrdenada) {
+			System.out.println(okok.getQualis());
+		}
 		return hashOrdenada;
 	}
 	
 	public void write() {
-		HashSet<Publicacao> hashOrdenada = this.ordenar();
+		LinkedList<Publicacao> hashOrdered = this.ordenar();
+//		for(Publicacao okok : hashOrdered) {
+//			System.out.println(okok.getQualis());
+//		}
 		//System.out.println(hashOrdenada);
 		
 		FileWriter fileWriter = null;
@@ -192,7 +214,7 @@ public class RelatorioPublicacoes {
 			fileWriter.append(FILE_HEADER.toString());
 			fileWriter.append(NEW_LINE_SEPARATOR.toString());
 			
-			for(Publicacao p : hashOrdenada) {
+			for(Publicacao p : hashOrdered) {
 				//System.out.println(p);
 				//System.out.println(p.getVeiculo().getListaQualis());
 				fileWriter.append(String.valueOf(p.getAno()));

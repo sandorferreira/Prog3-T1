@@ -3,18 +3,18 @@ import trabalho.Exceptions.*;
 import trabalho.Qualis;
 import trabalho.RegraPontuacao;
 import trabalho.Veiculo;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ArquivoQualificacoes extends File {
-	private HashSet<Qualis> qualificacoes = new HashSet<Qualis>();
-	private HashSet<Veiculo> veiculos = new HashSet<Veiculo>();
-	private HashSet<Veiculo> novoVeiculos = new HashSet<Veiculo>();
+	private LinkedList<Qualis> qualificacoes = new LinkedList<Qualis>();
+	private LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
+	private LinkedList<Veiculo> novoVeiculos = new LinkedList<Veiculo>();
 	private RegraPontuacao regra;
 	
-	public ArquivoQualificacoes(String pathname, HashSet<Veiculo> veiculos) throws ExceptionFile {
+	public ArquivoQualificacoes(String pathname, LinkedList<Veiculo> veiculos) throws ExceptionFile {
 		super(pathname);
 		this.veiculos = veiculos;
 		if(!this.exists()) throw new ExceptionFile();
@@ -90,12 +90,12 @@ public class ArquivoQualificacoes extends File {
 		return isValidQualis;
 	}
 	
-	public HashSet<Qualis> getQualis() {
+	public LinkedList<Qualis> getQualis() {
 		//this.loadToLocalMemory();
 		return qualificacoes;
 	}
 	
-	public HashSet<Veiculo> getVeiculosModificados() {
+	public LinkedList<Veiculo> getVeiculosModificados() {
 		return novoVeiculos;
 	}
 	

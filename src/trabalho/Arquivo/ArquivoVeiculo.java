@@ -3,11 +3,11 @@ import trabalho.Exceptions.*;
 import trabalho.Veiculo;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ArquivoVeiculo extends File{
-	HashSet<Veiculo> veiculos = new HashSet<Veiculo>();
+	LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
 	private String pathname;
 
 	public ArquivoVeiculo(String pathname) throws ExceptionFile {
@@ -58,7 +58,7 @@ public class ArquivoVeiculo extends File{
 		//System.out.println(auxVeiculos);
 	}
 	
-	public HashSet<Veiculo> getVeiculos() {
+	public LinkedList<Veiculo> getVeiculos() {
 		this.loadDataToMemory();
 		System.out.println(veiculos);
 		return veiculos;

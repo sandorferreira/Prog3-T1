@@ -1,6 +1,6 @@
 package trabalho;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedList;
 
 public class PublicacaoConferencia extends Publicacao {
 	private String local;
@@ -10,7 +10,7 @@ public class PublicacaoConferencia extends Publicacao {
 	}
 
 	public PublicacaoConferencia(int numero, int ano, int pgInicial, int pgFinal, String titulo, Veiculo veiculo,
-			String local, HashSet<Docente> autores) {
+			String local, LinkedList<Docente> autores) {
 		super(numero, ano, pgInicial, pgFinal, titulo, veiculo, autores);
 		this.local = local;
 	}

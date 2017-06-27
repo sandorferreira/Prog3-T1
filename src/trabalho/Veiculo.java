@@ -7,7 +7,7 @@ public class Veiculo {
 	private char tipo;
 	private double fatorDeImpacto;
 	private String ISSN;
-    private HashSet<Qualis> listaQualis = new HashSet<Qualis>();
+    private LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
 	
 	public Veiculo(String sigla, String nome, char tipo, double fatorDeImpacto, String ISSN) {
 		this.sigla = sigla;
@@ -33,7 +33,7 @@ public class Veiculo {
 		return ISSN;
 	}
         
-	public HashSet<Qualis> getListaQualis (){
+	public LinkedList<Qualis> getListaQualis (){
 		return listaQualis;
 	}
 	
