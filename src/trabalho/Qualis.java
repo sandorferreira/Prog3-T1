@@ -1,8 +1,15 @@
 package trabalho;
 
-public class Qualis {
+import java.io.Serializable;
 
-    private int ano, pontuacao;
+public class Qualis implements Serializable {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int ano, pontuacao;
     private String qualis;
     private static String[] categoriasQualis = {"A1", "A2", "B1", "B2", "B3", "B4", "B5", "C"};
 

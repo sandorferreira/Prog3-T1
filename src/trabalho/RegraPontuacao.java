@@ -1,11 +1,15 @@
 package trabalho;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-public class RegraPontuacao {
+public class RegraPontuacao implements Serializable {
 
-    /*
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/*
 	 * Classe RegraPontuacao
 	 * receve do arquivo de entrada de regras
 	 * gera na memória local a classe RegraPontuacao
@@ -58,7 +62,6 @@ public class RegraPontuacao {
     }
 
     public int valorQualis(String qualis) {
-        System.out.println(pontuacaoQualis);
         int i = 0;
         for (String auxqualis : categoriasQualis) {
             if (auxqualis.equals(qualis)) {

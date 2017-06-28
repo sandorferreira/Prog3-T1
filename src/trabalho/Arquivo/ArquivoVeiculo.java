@@ -58,7 +58,6 @@ public class ArquivoVeiculo extends File {
 
     public LinkedList<Veiculo> getVeiculos() {
         this.loadDataToMemory();
-        System.out.println(veiculos);
         return veiculos;
     }
 

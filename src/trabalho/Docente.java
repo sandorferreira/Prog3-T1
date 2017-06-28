@@ -1,11 +1,17 @@
 package trabalho;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.util.*;
 
-public class Docente {
+public class Docente implements Serializable{
 
-    private long codigo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private long codigo;
     private String nome;
     private Date dataNascimento;
     private Date dataIngresso;

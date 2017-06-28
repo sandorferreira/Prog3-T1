@@ -1,11 +1,16 @@
 package trabalho;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public abstract class Publicacao {
+public abstract class Publicacao implements Serializable{
 
-    private int numero;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int numero;
     private int ano;
     private int pgInicial, pgFinal;
     private String titulo;

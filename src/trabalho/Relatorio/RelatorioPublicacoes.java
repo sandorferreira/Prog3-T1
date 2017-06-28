@@ -46,7 +46,6 @@ public class RelatorioPublicacoes {
             maiorAno = auxPub.getAno();
             break;
         }
-        System.out.println("Continuou?");
         for (Publicacao auxPublicacao : auxPubs) {
             if (auxPublicacao.getAno() >= maiorAno) {
                 maiorAno = auxPublicacao.getAno();
@@ -128,7 +127,6 @@ public class RelatorioPublicacoes {
             LinkedList<Publicacao> auxPubs = new LinkedList<Publicacao>();
             LinkedList<Publicacao> pubPorQualis = this.ordenarPorQualis(categoriaQualis);
             int maiorAno = this.getMaiorAno(pubPorQualis);
-            System.out.println(maiorAno);
             for (int ano = maiorAno; ano > 2007; ano--) {
                 LinkedList<Publicacao> ordenadoPorAno = this.ordenarPorAno(maiorAno, ano, pubPorQualis);
                 for (Publicacao okok : ordenadoPorAno) {
@@ -139,9 +137,6 @@ public class RelatorioPublicacoes {
             for (Publicacao okok : auxPubs) {
                 hashOrdenada.add(okok);
             }
-        }
-        for (Publicacao okok : hashOrdenada) {
-            System.out.println(okok.getQualis());
         }
         return hashOrdenada;
     }

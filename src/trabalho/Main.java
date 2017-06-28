@@ -15,16 +15,74 @@ public class Main {
      */
     private static LinkedList<Docente> docentes = new LinkedList<Docente>();
     private static LinkedList<Publicacao> publicacoes = new LinkedList<Publicacao>();
+    private static LinkedList<Qualis> listaQualis = new LinkedList<Qualis>();
     private static LinkedList<Veiculo> veiculos = new LinkedList<Veiculo>();
     private static RegraPontuacao regra;
 
     public static void main(String[] args) {
+    	
+    	/*
+    	 * Manipulando argumentos
+    	 */
+    	
+    	Argumentos arg = new Argumentos(args);
 
         /*
-    	 * Criando arquivos:
-    	 * Docente, Veículo, Publicação, Qualificação e Regra
+    	 * Caso não seja --read-only ou --write-only
+    	 * ler arquivos CSV e gerar os relatórios normalmente
          */
-        ArquivoDocente arqDocente;
+        
+    	if(!arg.isReadOnly() && !arg.isWriteOnly()) {
+        	lerArquivosEntrada(arg);
+        	gerarRelatorios();
+        }
+
+        /* 
+		 * Caso seja --read-only
+		 * Ler os arquivos CSV e serializar a informação em recredenciamento.dat
+         */
+        
+        if(arg.isReadOnly()) {
+        	lerArquivosEntrada(arg);
+        	InfoSerializada info = new InfoSerializada(docentes, veiculos, publicacoes, listaQualis, regra);
+        	 try {
+        		 FileOutputStream fileRecredenciamento = new FileOutputStream("recredenciamento.dat");
+        		 ObjectOutputStream oo = new ObjectOutputStream(fileRecredenciamento);
+        		 oo.writeObject(info);
+        		 System.out.println("serializadasso");
+        	 } catch(Exception e) {
+        		 System.out.println(e.getMessage());
+        	 }
+        }
+        
+        /*
+         * Caso seja write-only:
+         * Ler apenas o arquivo recredenciamento.dat e gerar os relatórios a partir
+         * desse arquivo com as informações serializadas
+         */
+        
+        if(arg.isWriteOnly()) {
+        	try {
+        		FileInputStream fileDeserializarRec = new FileInputStream("recredenciamento.dat");
+        		ObjectInputStream doc = new ObjectInputStream(fileDeserializarRec);
+        		InfoSerializada info = (InfoSerializada) doc.readObject();
+        		
+        		publicacoes = (LinkedList<Publicacao>) info.getP();
+        		veiculos = (LinkedList<Veiculo>) info.getV();
+        		listaQualis = (LinkedList<Qualis>) info.getQ();
+        		docentes = (LinkedList<Docente>) info.getD();
+        		regra = (RegraPontuacao) info.getRegra();
+        		gerarRelatorios();
+        		
+        	} catch(Exception e) {
+        		System.out.println(e.getMessage());
+        	}
+        }
+        
+    }
+    
+    private static void lerArquivosEntrada(Argumentos arg) {
+    	ArquivoDocente arqDocente;
         ArquivoVeiculo arqVeiculo;
         ArquivoPublicacoes arqPublicacoes;
         ArquivoQualificacoes arqQualificacoes;
@@ -36,46 +94,44 @@ public class Main {
     	 * Substituir posteriormente pelos argumentos
          */
         try {
-            arqDocente = new ArquivoDocente("docentes.csv");
+            arqDocente = new ArquivoDocente(arg.getPathnameArquivoDocente());
             docentes = arqDocente.getDocentes();
         } catch (ExceptionFile e) {
             printAndStop(e.getMessage());
         }
 
         try {
-            arqVeiculo = new ArquivoVeiculo("veiculos.csv");
+            arqVeiculo = new ArquivoVeiculo(arg.getPathnameArquivoVeiculo());
             veiculos = arqVeiculo.getVeiculos();
         } catch (ExceptionFile e) {
             printAndStop(e.getMessage());
         }
 
         try {
-            arqPublicacoes = new ArquivoPublicacoes("publicacoes.csv", docentes, veiculos);
+            arqPublicacoes = new ArquivoPublicacoes(arg.getPathnameArquivoPublicacoes(), docentes, veiculos);
             publicacoes = arqPublicacoes.getPublicacoes();
         } catch (ExceptionFile e) {
             printAndStop(e.getMessage());
         }
 
         try {
-            arqRegras = new ArquivoRegras("regras.csv");
+            arqRegras = new ArquivoRegras(arg.getPathnameArquivoRegras());
             regra = arqRegras.getRegra();
         } catch (ExceptionFile e) {
             printAndStop(e.getMessage());
         }
 
         try {
-            arqQualificacoes = new ArquivoQualificacoes("qualis.csv", veiculos);
+            arqQualificacoes = new ArquivoQualificacoes(arg.getPathnameArquivoQualis(), veiculos);
             arqQualificacoes.setRegra(regra);
-            //setListaQualis(arqQualificacoes.getQualis());
+            listaQualis = arqQualificacoes.getQualis();
         } catch (ExceptionFile e) {
             printAndStop(e.getMessage());
         }
-
-        /* 
-		 * Todos os arquivos lidos
-		 * Gerando os Relatórios...
-         */
-        RelatorioPublicacoes rPublicacoes = new RelatorioPublicacoes("2-publicacoes.csv", publicacoes);
+    }
+    
+    private static void gerarRelatorios() {
+    	RelatorioPublicacoes rPublicacoes = new RelatorioPublicacoes("2-publicacoes.csv", publicacoes);
         rPublicacoes.write();
 
         //Utilizando publicações ordenadas do relatório 2 para o relatório 3

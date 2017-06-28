@@ -1,7 +1,14 @@
 package trabalho;
+import java.io.Serializable;
 import java.util.*;
 
-public class Veiculo {
+public class Veiculo implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String sigla;
 	private String nome;
 	private char tipo;

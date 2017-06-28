@@ -84,7 +84,6 @@ public class RelatorioRecredenciamento {
 
         } catch (Exception e) {
             System.out.println("Erro de I/O");
-            //(1);
 
         } finally {
             try {
@@ -92,7 +91,6 @@ public class RelatorioRecredenciamento {
                 fileWriter.close();
             } catch (IOException e) {
                 System.out.println("Erro de I/O");
-                //(1);
             }
 
         }

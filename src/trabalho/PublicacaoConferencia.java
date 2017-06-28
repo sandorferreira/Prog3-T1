@@ -1,8 +1,12 @@
 package trabalho;
-import java.util.Date;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class PublicacaoConferencia extends Publicacao {
+public class PublicacaoConferencia extends Publicacao implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String local;
 
 	public PublicacaoConferencia() {
