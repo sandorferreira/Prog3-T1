@@ -24,3 +24,8 @@ Sandor:
 
 (26/06/2017)
 - Gerando os relatórios.
+
+(28/06/2017)
+- Gerando os relatórios lendo arquivos de entrada CSVl
+- Lendo os arquivos CSV e serializando em recredenciamento.dat com --read-only.
+- Gerando os relatórios em --write-only com a leitura de recredenciamento.dat
