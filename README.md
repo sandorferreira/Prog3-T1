@@ -10,9 +10,6 @@ André:
 (21/06/2017)
 - Estou pensando em criar um objeto da classe 'Qualis' em 'Publicação' para vincular o qualis sem precisar ficar procurando toda hora, e lista de 'Publição' em 'Docente' para ter todas as listas de publicações de sua autoria.
 
-(27/06/2017)
-- Lista de publicações de cada docente está vazia, imagino que seja um erro que passou quando voltou de hash para linkedlist. Imagino que só falta mudar isso para o relatório de recredenciamento sair igual o teste.
-
 Sandor:
 
 (23/06/2017)
